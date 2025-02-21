@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  crawler:
+    build:
+      context: .
+      dockerfile: dockerfiles/crawler.Dockerfile
+    environment:
+      - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+      - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+      - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE}
+    volumes:
+      - ./data:/app/data
+    networks:
+      - webguard_net
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: dockerfiles/api.Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+      - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+      - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+      - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+      - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE}
+    volumes:
+      - ./models:/app/models
+      - ./config:/app/config
+    networks:
+      - webguard_net
+
+  ml_service:
+    build:
+      context: .
+      dockerfile: dockerfiles/ml.Dockerfile
+    environment:
+      - MODEL_PATH=/app/models
+      - CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
+    volumes:
+      - ./models:/app/models
+    networks:
+      - webguard_net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://api:8000
+    networks:
+      - webguard_net
+    depends_on:
+      - api
+
+networks:
+  webguard_net:
+    driver: bridge
