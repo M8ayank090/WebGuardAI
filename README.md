@@ -2,6 +2,8 @@
 
 WebGuardAI is a comprehensive web security solution that leverages artificial intelligence to detect and analyze potential threats across websites. The system combines advanced web crawling capabilities with machine learning to identify phishing attempts, malicious content, and security vulnerabilities.
 
+![security-dashboard-svg](https://github.com/user-attachments/assets/36654aca-ccee-4d8e-92d5-33a78d676c58)
+
 ## Features
 
 ### ✨ Advanced Threat Detection
@@ -9,6 +11,9 @@ WebGuardAI is a comprehensive web security solution that leverages artificial in
 - Multi-model machine learning approach for accurate predictions
 - Comprehensive feature extraction from text, images, and metadata
 - Customizable rules engine for specific threat patterns
+  
+![data-flow-diagram](https://github.com/user-attachments/assets/315ca173-4d3d-4282-a1e1-8d26db60893e)
+
 
 ### ⚡ Scalable Architecture
 - Containerized microservices architecture
@@ -21,6 +26,8 @@ WebGuardAI is a comprehensive web security solution that leverages artificial in
 - Detailed analytics and reporting
 - Customizable alert thresholds
 - Interactive data visualization
+
+![architecture-diagram](https://github.com/user-attachments/assets/a1a5f34f-3a3e-427d-8948-cffbdac27ab5)
 
 ## 🌐 System Architecture
 
@@ -44,6 +51,9 @@ The system consists of several key components working together to provide compre
 - Custom rule engine
 - Ensemble learning approach
 
+![ml-pipeline](https://github.com/user-attachments/assets/5449c36c-4121-419e-82af-449fe04e7695)
+
+
 ### 📂 Data Storage
 - Snowflake for structured data
 - S3/GCS for large binary objects
@@ -51,6 +61,8 @@ The system consists of several key components working together to provide compre
 - Data versioning
 
 ## ⚙ Getting Started
+
+![workflow-diagram](https://github.com/user-attachments/assets/260c80fd-1a76-4ab4-8afc-979fb327e29a)
 
 ### ✅ Prerequisites
 
